@@ -7,6 +7,7 @@ dotenv.config();
 const { connection } = require('./configuration/database');
 const { router: adminRoute } = require('./routes/adminRoute');
 const { router: loginRoute } = require('./routes/loginRoute');
+const { router: keeperRoute } = require('./routes/keeperRoute');
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(cors());
 app.use(adminRoute);
 app.use(loginRoute);
+app.use(keeperRoute);
 
 const port = process.env.PORT;
 

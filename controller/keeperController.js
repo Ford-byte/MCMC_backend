@@ -1,7 +1,7 @@
-const { getData, addData, updateData } = require('../model/adminModel');
+const { getData, addData, updateData } = require('../model/keeperModel');
 const bcryptjs = require('bcryptjs');
 
-async function getAdmin(req, res) {
+async function getKeeper(req, res) {
     try {
         getData((error, result) => {
             if (error) {
@@ -15,7 +15,7 @@ async function getAdmin(req, res) {
     }
 }
 
-async function addAdmin(req, res) {
+async function addKeeper(req, res) {
     try {
         const { firstname, lastname, username, password, email, birthday, role } = req.body;
 
@@ -55,7 +55,7 @@ async function addAdmin(req, res) {
     }
 }
 
-async function updateAdmin(req, res) {
+async function updateKeeper(req, res) {
     const { firstname, lastname, username, password, email, birthday, role } = req.body;
 
     getData((error, result) => {
@@ -83,4 +83,4 @@ async function updateAdmin(req, res) {
     });
 }
 
-module.exports = { getAdmin, addAdmin, updateAdmin };
+module.exports = { getKeeper, addKeeper, updateKeeper };
