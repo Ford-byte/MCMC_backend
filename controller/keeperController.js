@@ -17,7 +17,7 @@ async function getKeeper(req, res) {
 
 async function addKeeper(req, res) {
     try {
-        const { firstname, lastname, username, password, email, birthday, role } = req.body;
+        const { profile, firstname, lastname, username, password, email, birthday, role } = req.body;
 
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password, salt);
@@ -40,7 +40,7 @@ async function addKeeper(req, res) {
                 return;
             }
 
-            const data = [firstname, lastname, username, hashedPassword, email, birthday, role];
+            const data = [profile, firstname, lastname, username, hashedPassword, email, birthday, role];
 
             addData(data, (error, result) => {
                 if (error) {
@@ -56,7 +56,7 @@ async function addKeeper(req, res) {
 }
 
 async function updateKeeper(req, res) {
-    const { firstname, lastname, username, password, email, birthday, role } = req.body;
+    const { profile, firstname, lastname, username, password, email, birthday, role } = req.body;
 
     getData((error, result) => {
         if (error) {
@@ -71,8 +71,8 @@ async function updateKeeper(req, res) {
             return;
         }
 
-        const data = [firstname, lastname, username, password, email, birthday, role, email];
-        
+        const data = [profile, firstname, lastname, username, password, email, birthday, role, email];
+
         updateData(data, (error, result) => {
             if (error) {
                 res.status(500).json({ success: false, message: "Server error", error });

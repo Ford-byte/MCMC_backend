@@ -6,7 +6,7 @@ function getData(data, callback) {
 }
 
 function addData(data, callback) {
-    const query = "INSERT INTO bookkeeper() values('',?,?,?,?,?,?,?,1)";
+    const query = "INSERT INTO bookkeeper() values('',?,?,?,?,?,?,?,?,1)";
     connection.query(query, data, callback)
 }
 

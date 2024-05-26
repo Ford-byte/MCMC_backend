@@ -1,7 +1,7 @@
-const { getData, addData, updateData } = require('../model/adminModel');
+const { getData, addData, updateData } = require('../model/userModel');
 const bcryptjs = require('bcryptjs');
 
-async function getAdmin(req, res) {
+async function getUser(req, res) {
     try {
         getData((error, result) => {
             if (error) {
@@ -15,9 +15,9 @@ async function getAdmin(req, res) {
     }
 }
 
-async function addAdmin(req, res) {
+async function addUser(req, res) {
     try {
-        const { firstname, lastname, username, password, email, birthday, role } = req.body;
+        const { profile,firstname, lastname, username, password, email, birthday, role } = req.body;
 
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password, salt);
@@ -40,7 +40,7 @@ async function addAdmin(req, res) {
                 return;
             }
 
-            const data = [firstname, lastname, username, hashedPassword, email, birthday, role];
+            const data = [profile,firstname, lastname, username, hashedPassword, email, birthday, role];
 
             addData(data, (error, result) => {
                 if (error) {
@@ -55,8 +55,8 @@ async function addAdmin(req, res) {
     }
 }
 
-async function updateAdmin(req, res) {
-    const { firstname, lastname, username, password, email, birthday, role } = req.body;
+async function updateUser(req, res) {
+    const { profile,firstname, lastname, username, password, email, birthday, role } = req.body;
 
     getData((error, result) => {
         if (error) {
@@ -71,7 +71,7 @@ async function updateAdmin(req, res) {
             return;
         }
 
-        const data = [firstname, lastname, username, password, email, birthday, role, email];
+        const data = [profile,firstname, lastname, username, password, email, birthday, role, email];
         
         updateData(data, (error, result) => {
             if (error) {
@@ -83,4 +83,4 @@ async function updateAdmin(req, res) {
     });
 }
 
-module.exports = { getAdmin, addAdmin, updateAdmin };
+module.exports = { getUser, addUser, updateUser };

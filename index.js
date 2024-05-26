@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const { connection } = require('./configuration/database');
-const { router: adminRoute } = require('./routes/adminRoute');
+const { router: userRoute } = require('./routes/userRoute');
 const { router: loginRoute } = require('./routes/loginRoute');
 const { router: keeperRoute } = require('./routes/keeperRoute');
 
@@ -13,7 +13,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use(adminRoute);
+app.use(userRoute);
 app.use(loginRoute);
 app.use(keeperRoute);
 
