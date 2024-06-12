@@ -16,10 +16,6 @@ connection.connect((err)=>{
             console.log('Connection Error!');
             return;
         }
-    else
-        {
-            console.log('Connection Successful!');
-        }
 });
 
 module.exports = {connection};

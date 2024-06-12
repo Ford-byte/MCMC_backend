@@ -7,7 +7,8 @@ dotenv.config();
 const { connection } = require('./configuration/database');
 const { router: userRoute } = require('./routes/userRoute');
 const { router: loginRoute } = require('./routes/loginRoute');
-const { router: keeperRoute } = require('./routes/keeperRoute');
+const { adminDefaultController } = require('./controller/adminDefaultController');
+const { router: authenticateUsers } = require('./routes/authenticateUsersRoute');
 
 const app = express();
 
@@ -15,9 +16,9 @@ app.use(express.json());
 app.use(cors());
 app.use(userRoute);
 app.use(loginRoute);
-app.use(keeperRoute);
+app.use(authenticateUsers);
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 const startServer = async () => {
     try {
@@ -27,6 +28,7 @@ const startServer = async () => {
         app.listen(port, () => {
             console.log(`Server is running on http://localhost:${port}`);
         });
+        adminDefaultController();
     } catch (error) {
         console.error('Failed to connect to the database', error);
         process.exit(1);

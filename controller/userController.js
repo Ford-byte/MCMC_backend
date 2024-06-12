@@ -1,6 +1,7 @@
 const { getData, addData, updateData } = require('../model/userModel');
 const bcryptjs = require('bcryptjs');
 
+
 async function getUser(req, res) {
     try {
         getData((error, result) => {
@@ -10,6 +11,7 @@ async function getUser(req, res) {
                 res.status(200).json({ success: true, message: 'Success!', data: result });
             }
         });
+
     } catch (error) {
         res.status(500).json({ success: false, message: 'Retrieval Data Unsuccessful!' });
     }
@@ -17,7 +19,11 @@ async function getUser(req, res) {
 
 async function addUser(req, res) {
     try {
-        const { profile,firstname, lastname, username, password, email, birthday, role } = req.body;
+        const { profile, firstname, lastname, username, password, email, birthday, role } = req.body;
+
+        if (!profile || !firstname || !lastname || !username || !password || !email || !birthday || !role) {
+            return res.status(400).json({ success: false, message: 'All fields are required' });
+        }
 
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password, salt);
@@ -40,7 +46,7 @@ async function addUser(req, res) {
                 return;
             }
 
-            const data = [profile,firstname, lastname, username, hashedPassword, email, birthday, role];
+            const data = [profile, firstname, lastname, username, hashedPassword, email, birthday, role];
 
             addData(data, (error, result) => {
                 if (error) {
@@ -56,7 +62,11 @@ async function addUser(req, res) {
 }
 
 async function updateUser(req, res) {
-    const { profile,firstname, lastname, username, password, email, birthday, role } = req.body;
+    const { profile, firstname, lastname, username, password, email, birthday, role } = req.body;
+    
+    if (!profile || !firstname || !lastname || !username || !password || !email || !birthday || !role) {
+        return res.status(400).json({ success: false, message: 'All fields are required' });
+    }
 
     getData((error, result) => {
         if (error) {
@@ -71,8 +81,8 @@ async function updateUser(req, res) {
             return;
         }
 
-        const data = [profile,firstname, lastname, username, password, email, birthday, role, email];
-        
+        const data = [profile, firstname, lastname, username, password, email, birthday, role, email];
+
         updateData(data, (error, result) => {
             if (error) {
                 res.status(500).json({ success: false, message: "Server error", error });

@@ -1,19 +1,12 @@
 const { connection } = require('../configuration/database')
 
+
 function getData(data, callback) {
-    const query = "SELECT * from bookkeeper where view = 1";
-    connection.query(query, data, callback)
+    const query = "SELECT * from users where role='keeper' && view = 1";
+    connection.query(query, data, (err, results) => {
+        connection.end();
+        callback(err, results);
+    })
 }
 
-function addData(data, callback) {
-    const query = "INSERT INTO bookkeeper() values('',?,?,?,?,?,?,?,?,1)";
-    connection.query(query, data, callback)
-}
-
-function updateData(data, callback) {
-    const query = "UPDATE `bookkeeper` SET `firstname`=?, `lastname`=?, `username`=?, `password`=?, `email`=?, `birthday`=?, `role`=? WHERE `email`=?";
-
-    connection.query(query, data, callback)
-}
-
-module.exports = { getData, addData, updateData }    
+module.exports = { getData }    
