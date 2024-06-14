@@ -8,7 +8,7 @@ const { connection } = require('./configuration/database');
 const { router: userRoute } = require('./routes/userRoute');
 const { router: loginRoute } = require('./routes/loginRoute');
 const { adminDefaultController } = require('./controller/adminDefaultController');
-const { router: authenticateUsers } = require('./routes/authenticateUsersRoute');
+// const { router: authenticateUsers } = require('./routes/authenticateUsersRoute');
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors());
 app.use(userRoute);
 app.use(loginRoute);
-app.use(authenticateUsers);
+// app.use(authenticateUsers);
 
 const port = process.env.PORT || 3000;
 
