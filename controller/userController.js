@@ -1,4 +1,4 @@
-const { getData, addData, updateData } = require('../model/userModel');
+const { getData, addData, updateData,deleteData,changeRole } = require('../model/userModel');
 const bcryptjs = require('bcryptjs');
 
 
@@ -93,4 +93,20 @@ async function updateUser(req, res) {
     });
 }
 
-module.exports = { getUser, addUser, updateUser };
+async function deleteUser(req,res){
+    const { id } = req.params;
+
+    if(!id){
+        return res.status(400).json({ success: false, message: 'All fields are required' });
+    }
+
+    deleteData(id,(error , result) => {
+        if (error) {
+            res.status(500).json({ success: false, message: "Server error", error });
+        } else {
+            res.status(200).json({ success: true, message: "Action is successful" });
+        }
+    })
+}
+
+module.exports = { getUser, addUser, updateUser,deleteUser };

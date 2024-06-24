@@ -21,7 +21,7 @@ function verify(req, res) {
                 return res.status(500).json({ status: false, message: "Internal Server Error" });
             }
             if (response) {
-                const token = jwt.sign({ userId: user.user_id, email: user.email, role: user.role }, 'secret_key');
+                const token = jwt.sign({ userId: user.user_id, email: user.email, role: user.role },'secret_key',{expiresIn : '1h'});
                 return res.status(200).json({ status: true, message: "Login Successfully", role: user.role, token });
             } else {
                 return res.status(401).json({ status: false, message: "Incorrect password" });

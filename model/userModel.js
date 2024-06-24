@@ -22,4 +22,20 @@ function updateData(data, callback) {
     })
 }
 
-module.exports = { getData, addData, updateData }    
+function deleteData(data, callback){
+    const query = "UPDATE `users` SET view = 0 WHERE id = ?";
+    connection.query(query, data, (err, results) => {
+        connection.end();
+        callback(err, results);
+    })
+}
+
+function changeRole(data, callback){
+    const query = "UPDATE `users` SET role = ? WHERE id = ?";
+    connection.query(query, data, (err, results) => {
+        connection.end();
+        callback(err, results);
+    })
+}
+
+module.exports = { getData, addData, updateData,deleteData,changeRole }    
