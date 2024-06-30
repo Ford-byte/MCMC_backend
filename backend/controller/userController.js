@@ -1,8 +1,6 @@
-const express = require('express');
 const bcrypt = require('bcrypt');
 const { getData, addData, deleteData, updateData, changeRole } = require('../model/userModel');
 
-const router = express.Router();
 
 async function getUser(req, res) {
     try {
@@ -85,13 +83,14 @@ async function updateUser(req, res) {
             req.body.firstname,
             req.body.lastname,
             req.body.username,
-            req.body.password, // Assuming you handle password updates separately
+            req.body.password,
             req.body.email,
             req.body.birthday,
             req.body.role,
             req.body.status,
-            req.body.email // Assuming email is the unique identifier for the user
+            req.body.email
         ];
+
         updateData(updatedData, (err, data) => {
             if (err) {
                 return res.status(500).json({ error: 'Failed to update data' });
