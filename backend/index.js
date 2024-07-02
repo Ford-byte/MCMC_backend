@@ -6,9 +6,11 @@ app.use(express.json());
 const { router: userRouter } = require('./router/userRouter');
 const { adminDefault } = require('./controller/defaultAdminController');
 const { router: loginRouter } = require('./router/loginRouter');
+const { router: otp } = require('./router/oneTimePasswordRoute');
 
 app.use(userRouter);
-app.use(loginRouter)
+app.use(loginRouter);
+app.use(otp);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
